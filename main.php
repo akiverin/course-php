@@ -11,10 +11,6 @@
 </head>
 
 <body>
-    <?php
-        session_start();
-        include 'get_data.php';
-    ?>
     <header class="p-1 bg-dark text-white">
         <div class="container">
             <nav class="navbar">
@@ -22,6 +18,7 @@
                     <a class="navbar-brand text-white" href="#">
                         <?php 
                             session_start();
+                            include 'get_data.php';
                             echo 'Логин: '.$_SESSION['username'];
                         ?>
                     </a>
@@ -75,7 +72,8 @@
                     </select>
                 </div>
                 <div class="form-check form-switch">
-                    <label for="check" class="form-check-label" data-color="info" tabindex="7">Сделать сообщение приватным</label>
+                    <label for="check" class="form-check-label" data-color="info" tabindex="7">Сделать сообщение
+                        приватным</label>
                     <input type="checkbox" name="check" id="check" class="form-check-input" value="1">
                 </div>
                 <button type="submit" class="btn btn-primary mt-3">Добавить</button>
@@ -83,8 +81,19 @@
         </div>
         <div class="container">
             <h2 class="mb-3 text-center">Сообщения</h2>
-            <div class="list-group list-group-flush border-bottom scrollarea"
-                style="height: 540px; overflow-y: scroll;">
+            <form action="sort.php">
+                <div class="form-floating d-flex">
+                    <select class="form-select" id="floatingSelect" aria-label="Сортировка по хэштегу" name="sort">
+                        <option value="1">От А до Я</option>
+                        <option value="2">От Я до А</option>
+                        <option value="3">Случайно</option>
+                    </select>
+                    <label for="floatingSelect">Сортировка по хэштегу</label>
+                    <button type="submit" class="btn btn-info ms-5">Отсортировать</button>
+                </div>
+            </form>
+            <div class="list-group list-group-flush border-bottom scrollarea mt-3"
+                style="height: 490px; overflow-y: scroll;">
                 <?php
                     $message = getTableMessages();
                     while($row = $message->fetch_assoc()){

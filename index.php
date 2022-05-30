@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="ru">
-
+<?php
+session_start();
+?>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,6 +26,9 @@
                 <div class="card card-body flex-grow-0" style="width: 400px;">
                     <form action="/authorization.php" method="POST" type="log">
                         <h2>Вход</h2>
+                        <?php
+                            echo 'Логин: '.$_SESSION['username'];
+                        ?>
                         <input type="text" name="type" value="log" style="display: none;">
                         <div class="mb-3">
                             <label for="logUsername" class="form-label">Логин</label>
