@@ -36,7 +36,7 @@ function getTableMessages() {
     $res = sql_query('SELECT SMS.`id`, SMS.`h_id`, SMS.`User_id`, SMS.`channel_id`, SMS.`Description`, SMS.`Data`, SMS.`save`, hashtag.`name` FROM SMS, hashtag WHERE hashtag.`id`=SMS.`h_id` ORDER BY hashtag.`name`');
     if ($_SESSION['sort']=='DESC'){$res = sql_query('SELECT SMS.`id`, SMS.`h_id`, SMS.`User_id`, SMS.`channel_id`, SMS.`Description`, SMS.`Data`, SMS.`save`, hashtag.`name` FROM SMS, hashtag WHERE hashtag.`id`=SMS.`h_id` ORDER BY hashtag.`name` DESC');}
     if ($_SESSION['sort']=='ASC'){$res = sql_query('SELECT SMS.`id`, SMS.`h_id`, SMS.`User_id`, SMS.`channel_id`, SMS.`Description`, SMS.`Data`, SMS.`save`, hashtag.`name` FROM SMS, hashtag WHERE hashtag.`id`=SMS.`h_id` ORDER BY hashtag.`name` ASC');}
-    if ($_SESSION['sort']=='RAND'){$res = $res = sql_query('SELECT SMS.`id`, SMS.`h_id`, SMS.`User_id`, SMS.`channel_id`, SMS.`Description`, SMS.`Data`, SMS.`save`, hashtag.`name` FROM SMS, hashtag WHERE hashtag.`id`=SMS.`h_id` ORDER BY hashtag.`name` 1');}
+    if ($_SESSION['sort']=='RAND'){$res = $res = sql_query('SELECT SMS.`id`, SMS.`h_id`, SMS.`User_id`, SMS.`channel_id`, SMS.`Description`, SMS.`Data`, SMS.`save`, hashtag.`name` FROM SMS, hashtag WHERE hashtag.`id`=SMS.`h_id` ORDER BY RAND() ');}
     return $res;
 }
 

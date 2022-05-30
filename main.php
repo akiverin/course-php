@@ -81,18 +81,19 @@
         </div>
         <div class="container">
             <h2 class="mb-3 text-center">Сообщения</h2>
-            <form action="sort.php">
-                <div class="form-floating d-flex">
-                    <select class="form-select" id="floatingSelect" aria-label="Сортировка по хэштегу" name="sort">
+            <form class="change-form" action="sort.php" method="POST">
+                <div class="form-floating d-flex flex-wrap">
+                    <select class="form-select" id="floatingSelect" aria-label="Сортировка по хэштегу"
+                        name="sort" onblur="submit();">
                         <option value="1">От А до Я</option>
                         <option value="2">От Я до А</option>
                         <option value="3">Случайно</option>
                     </select>
                     <label for="floatingSelect">Сортировка по хэштегу</label>
-                    <button type="submit" class="btn btn-info ms-5">Отсортировать</button>
+                    <button type="submit" class="d-none btn btn-info ms-5">Отсортировать</button>
                 </div>
             </form>
-            <div class="list-group list-group-flush border-bottom scrollarea mt-3"
+            <div class="list-group list-group-flush border-bottom scrollarea mt-3 p-0"
                 style="height: 490px; overflow-y: scroll;">
                 <?php
                     $message = getTableMessages();
@@ -105,19 +106,24 @@
                         $text = $row['Data'];
                         if(!$flag Or $author==$_SESSION['username']){
                         ?>
-                <div class="list-group-item list-group-item-action py-3 lh-sm">
-                    <div class="d-flex w-100 align-items-center justify-content-between mb-1">
-                        <h5 class="card-title">Канал: <?= $channel ?></h5>
-                        <p class="card-title">Автор: <?= $author ?></p>
-                        <h6 class="card-subtitle text-muted"><?= '#'.$hashtag ?></h6>
+                <div class="list-group-item list-group-item-action lh-sm card p-0 mb-2">
+                    <div class="d-flex w-100 align-items-center justify-content-between mb-1 card-header">
+                        <p class="mt-1 card-title">Канал: <?= $channel ?></p>
+                        <p class="mt-1 card-title">Автор: <?= $author ?></p>
+                        <p class="card-subtitle text-info"><?= '#'.$hashtag ?></p>
                     </div>
-                    <?php if($like){?>
-                    <p class="text-success m-0 p-0">Данный канал является доверенным!</p>
-                    <?php } ?>
-                    <?php if($flag){?>
-                    <p class="text-danger m-0 p-0">Только для вас</p>
-                    <?php } ?>
-                    <p class="card-text mt-2"><?= $text ?></p>
+                    <div class="card-body">
+                        <p class="card-text"><?= $text ?></p>
+                    </div>
+                    <div class="card-footer">
+                        <?php if($like){?>
+                        <p class="m-0 p-0"><small class="text-success">Данный канал является доверенным.</small></p>
+                        <?php } ?>
+                        <?php if($flag){?>
+                        <p class="m-0 p-0"><small class="text-danger">Только вы видите данное сообщение.</small></p>
+                        <?php } ?>
+                    </div>
+
 
                 </div>
                 <?php
@@ -131,6 +137,11 @@
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous">
+    </script>
+    <script>
+        $(".auto_submit_item").change(function () {
+            $(this).parents("form").submit();
+        });
     </script>
 </body>
 

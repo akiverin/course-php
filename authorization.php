@@ -1,7 +1,7 @@
 <?php
-include_once 'database.php';
-include_once 'index.php';
+session_destroy();
 session_start();
+include_once 'database.php';
 
 $type = $_POST['type'];
 $login = $_POST['username'];
@@ -17,7 +17,7 @@ if($type == 'log'){
             $_SESSION['username'] = $login;
             $_SESSION['id'] = $row['id'];
             $_SESSION['type'] = 'log';
-            header('Location: main.php');
+            header('Location: /main.php');
             exit();
         } else {
             header('Location: /index.php');
@@ -35,8 +35,8 @@ if($type == 'log'){
         sql_query('INSERT INTO Users VALUES (NULL,'. add_quotes($login).','. add_quotes($email).',' . add_quotes($password).')');
         $_SESSION['username'] = $login;
         $_SESSION['id'] = $row['id'];
-        $_SESSION['type'] = 'reg';
-        header('Location: /main.php');
+
+        header('Location: '.$newURL);
         exit();
     }
 }
